@@ -26,7 +26,7 @@ app.get("/", (request, response) => {
 });
 
 app.listen(4000, () => {
-  console.log("Servidor rodando na porta: http://localhost:3000/repository/");
+  console.log("Servidor rodando na porta: http://localhost:4000/repository/");
 });
 
 module.exports = app;
