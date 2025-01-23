@@ -1,8 +1,8 @@
-import JwtToken from "../models/jwtToken.js";
-import Users from "../models/userSchema.js";
-import Groups from "../models/groupSchema.js";
+const JwtToken = require("../models/jwtToken.js");
+const Users = require("../models/userSchema.js");
+const Groups = require("../models/groupSchema.js");
 
-export default async function validateToken(request, response, next) {
+module.exports = async function validateToken(request, response, next) {
   const jwtToken = new JwtToken(process.env.SECRET_KEY);
   const token = request.headers.authorization;
   const tokenResult = jwtToken.validateToken(token);
@@ -24,7 +24,7 @@ export default async function validateToken(request, response, next) {
         const arr = {
           status: "ERROR",
           message: "Dados do usuário que solicitou a requisição não são coerentes!",
-          data: user
+          data: user,
         };
         return response.status(403).send(arr);
       }
@@ -51,4 +51,4 @@ export default async function validateToken(request, response, next) {
     };
     return response.status(500).send(arr);
   }
-}
+};

@@ -1,5 +1,5 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   getOne,
   getAll,
   insertOne,
@@ -11,10 +11,9 @@ import {
   acceptGroup,
   updateStatus,
   update
-} from "../controllers/groupControllers.js";
-import validateToken from "../middlewares/validateToken.js";
-import validateAdminTeacher from "../middlewares/validateAdminTeacher.js";
-
+} = require("../controllers/groupControllers.js");
+const validateToken = require("../middlewares/validateToken.js");
+const validateAdminTeacher = require("../middlewares/validateAdminTeacher.js");
 
 const groupRoutes = (app) => {
   app.use(express.json());
@@ -33,7 +32,7 @@ const groupRoutes = (app) => {
   app.patch("/repository/groups/accept", acceptGroup);
   app.patch("/repository/groups/update/status/:status", validateToken, validateAdminTeacher, updateStatus);
 
-  app.put("/repository/groups/:_id" , validateToken , validateAdminTeacher, update);
+  app.put("/repository/groups/:_id", validateToken, validateAdminTeacher, update);
 };
 
-export default groupRoutes;
+module.exports = groupRoutes;

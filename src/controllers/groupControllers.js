@@ -1,11 +1,12 @@
-import Groups from "../models/groupSchema.js";
-import Users from "../models/userSchema.js";
-import Courses from "../models/courseSchema.js";
-import Projects from "../models/projectSchema.js";
-import { sendEmail, sendGroupInvites } from "../utils/emailManager.js";
-import { htmlInviteMessage } from "../utils/htmlModels.js";
-import { ObjectId } from "mongodb";
-import { set } from "mongoose";
+const Groups = require("../models/groupSchema.js");
+const Users = require("../models/userSchema.js");
+const Courses = require("../models/courseSchema.js");
+const Projects = require("../models/projectSchema.js");
+const { sendEmail, sendGroupInvites } = require("../utils/emailManager.js");
+const { htmlInviteMessage } = require("../utils/htmlModels.js");
+const { ObjectId } = require("mongodb");
+const { set } = require("mongoose");
+
 /**
  *
  *
@@ -13,7 +14,7 @@ import { set } from "mongoose";
  *
  *
  */
-export async function getOne(request, response) {
+async function getOne(request, response) {
   const _id = request.params._id;
 
   try {
@@ -43,7 +44,7 @@ export async function getOne(request, response) {
   }
 }
 
-export async function getAll(request, response) {
+async function getAll(request, response) {
   let query = {};
 
   try {
@@ -89,7 +90,7 @@ export async function getAll(request, response) {
  *
  *
  */
-export async function insertOne(request, response) {
+async function insertOne(request, response) {
   const leader_id = request.body.leader_id;
   const supervisor_id = request.body.supervisor_id;
   const title = request.body.title;
@@ -244,7 +245,7 @@ export async function insertOne(request, response) {
   }
 }
 
-export async function insertOneAdmin(request, response) {
+async function insertOneAdmin(request, response) {
   const students = request.body.students;
   const leader_id = request.body.leader_id;
   const supervisor_id = request.body.supervisor_id;
@@ -404,7 +405,7 @@ export async function insertOneAdmin(request, response) {
   }
 }
 
-export async function inviteStudents(request, response) {
+async function inviteStudents(request, response) {
   const _id = request.params._id;
   const studentsRegister = request.body;
 
@@ -462,7 +463,7 @@ export async function inviteStudents(request, response) {
  *
  */
 
-export async function deleteOne(request, response) {
+async function deleteOne(request, response) {
   const _id = request.params._id;
 
   try {
@@ -521,7 +522,7 @@ export async function deleteOne(request, response) {
   }
 }
 
-export async function deleteMany(request, response) {
+async function deleteMany(request, response) {
   const _id_list = request.body;
 
   try {
@@ -597,7 +598,7 @@ export async function deleteMany(request, response) {
  *
  */
 
-export async function leaveGroup(request, response) {
+async function leaveGroup(request, response) {
   const group_id = request.params.group_id;
   const student_id = request.body.student_id;
 
@@ -692,7 +693,7 @@ export async function leaveGroup(request, response) {
   }
 }
 
-export async function acceptGroup(request, response) {
+async function acceptGroup(request, response) {
   const student_id = request.body.student_id;
   const group_id = request.body.group_id;
 
@@ -772,7 +773,7 @@ export async function acceptGroup(request, response) {
   }
 }
 
-export async function updateStatus(request, response) {
+async function updateStatus(request, response) {
   const status = request.params.status;
   const _id_list = request.body;
 
@@ -824,7 +825,7 @@ export async function updateStatus(request, response) {
  *
  */
 
-export async function update(request, response) {
+async function update(request, response) {
   const _id = request.params._id;
   try {
     if (!ObjectId.isValid(_id)) {
@@ -946,7 +947,7 @@ export async function update(request, response) {
         newStudents.push(student.id);
       }
 
-      group.students = newStudents
+      group.students = newStudents;
     }
 
     if (leader_id) {
@@ -1016,3 +1017,17 @@ export async function update(request, response) {
     return response.status(500).send(arr);
   }
 }
+
+module.exports = {
+  getOne,
+  getAll,
+  insertOne,
+  insertOneAdmin,
+  inviteStudents,
+  deleteOne,
+  deleteMany,
+  leaveGroup,
+  acceptGroup,
+  updateStatus,
+  update,
+};

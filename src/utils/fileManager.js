@@ -1,7 +1,7 @@
-import fs from "fs";
-import csv from "csv-parser";
+const fs = require("fs");
+const csv = require("csv-parser");
 
-export function validateFile(file, types, maxSize) {
+function validateFile(file, types, maxSize) {
   try {
     if (file.size > maxSize) {
       return {
@@ -32,7 +32,7 @@ export function validateFile(file, types, maxSize) {
   }
 }
 
-export function renameFile(oldPath, newPath) {
+function renameFile(oldPath, newPath) {
   try {
     fs.renameSync(oldPath, newPath);
     return {
@@ -47,14 +47,14 @@ export function renameFile(oldPath, newPath) {
   }
 }
 
-export function deleteFile(path) {
+function deleteFile(path) {
   try {
     if (fs.existsSync(path)) {
       fs.unlinkSync(path);
 
       return {
         status: true,
-        message: "Arquivo exlcuído com sucesso!",
+        message: "Arquivo excluído com sucesso!",
       };
     }
 
@@ -70,7 +70,7 @@ export function deleteFile(path) {
   }
 }
 
-export function csvToArray(path, separator) {
+function csvToArray(path, separator) {
   let results = [];
   const fileContent = fs.readFileSync(path, "utf8");
 
@@ -90,3 +90,5 @@ export function csvToArray(path, separator) {
 
   return results;
 }
+
+module.exports = { validateFile, renameFile, deleteFile, csvToArray };

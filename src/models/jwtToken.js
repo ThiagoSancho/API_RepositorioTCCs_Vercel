@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
-export default class JwtToken {
+class JwtToken {
   constructor(secret_key) {
     this.secret_key = secret_key;
   }
@@ -26,3 +26,5 @@ export default class JwtToken {
     }
   }
 }
+
+module.exports = JwtToken;

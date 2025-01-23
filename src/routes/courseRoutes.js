@@ -1,15 +1,14 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   getAll,
   getOne,
   insertOne,
   deleteOne,
   deleteMany,
   updateOne,
-} from "../controllers/courseControllers.js";
-import validateToken from "../middlewares/validateToken.js";
-import validateAdmin from "../middlewares/validateAdmin.js";
-
+} = require("../controllers/courseControllers.js");
+const validateToken = require("../middlewares/validateToken.js");
+const validateAdmin = require("../middlewares/validateAdmin.js");
 
 const courseRoutes = (app) => {
   app.use(express.json());
@@ -20,9 +19,9 @@ const courseRoutes = (app) => {
   app.post("/repository/courses", validateToken, validateAdmin, insertOne);
 
   app.delete("/repository/courses/:_id", validateToken , validateAdmin , deleteOne);
-  app.delete("/repository/courses",validateToken , validateAdmin, deleteMany);
+  app.delete("/repository/courses", validateToken , validateAdmin, deleteMany);
 
   app.put("/repository/courses/:_id", validateToken, validateAdmin, updateOne);
 };
 
-export default courseRoutes;
+module.exports = courseRoutes;

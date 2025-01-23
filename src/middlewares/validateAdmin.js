@@ -1,4 +1,4 @@
-export default async function validateAdmin(request, response, next) {
+module.exports = async function validateAdmin(request, response, next) {
   const user = request.userLogged;
 
   if (user.user_type != "Administrador") {
@@ -10,4 +10,4 @@ export default async function validateAdmin(request, response, next) {
   } else {
     next();
   }
-}
+};

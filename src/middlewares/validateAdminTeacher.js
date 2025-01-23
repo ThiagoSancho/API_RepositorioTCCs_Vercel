@@ -1,4 +1,4 @@
-export default async function validateAdminTeacher(request, response, next) {
+module.exports = async function validateAdminTeacher(request, response, next) {
   const user = request.userLogged;
 
   if (user.user_type == "Administrador" || user.user_type == "Professor") {

@@ -1,10 +1,11 @@
-import Courses from "../models/courseSchema.js";
-import { ObjectId } from "mongodb";
+const Courses = require("../models/courseSchema.js");
+const { ObjectId } = require("mongodb");
+
 /**
  * Funções GET
  */
 
-export async function getAll(request, response) {
+async function getAll(request, response) {
   Courses.find()
     .exec()
     .then((resolve) => {
@@ -25,7 +26,7 @@ export async function getAll(request, response) {
     });
 }
 
-export async function getOne(request, response) {
+async function getOne(request, response) {
   const _id = request.params._id;
   Courses.findById(_id)
     .exec()
@@ -58,7 +59,7 @@ export async function getOne(request, response) {
  * Função POST
  */
 
-export async function insertOne(request, response) {
+async function insertOne(request, response) {
   const course = new Courses({
     name: request.body.name.trim(),
     description: request.body.description.trim(),
@@ -89,7 +90,7 @@ export async function insertOne(request, response) {
  * Função PUT
  */
 
-export async function updateOne(request, response) {
+async function updateOne(request, response) {
   const _id = request.params._id;
   const name = request.body.name;
   const description = request.body.description;
@@ -137,7 +138,7 @@ export async function updateOne(request, response) {
 /**
  * Funções DELETE
  */
-export async function deleteOne(request, response) {
+async function deleteOne(request, response) {
   const _id = request.params._id;
 
   Courses.findByIdAndDelete(_id)
@@ -160,12 +161,11 @@ export async function deleteOne(request, response) {
     });
 }
 
-export async function deleteMany(request, response) {
+async function deleteMany(request, response) {
   const _idListString = request.body;
   let _idList = [];
 
   try {
-    
     for (let _id of _idListString) {
       if (ObjectId.isValid(_id)) {
         let objectId = ObjectId.createFromHexString(_id);
@@ -196,3 +196,12 @@ export async function deleteMany(request, response) {
     return response.status(500).send(arr);
   }
 }
+
+module.exports = {
+  getAll,
+  getOne,
+  insertOne,
+  updateOne,
+  deleteOne,
+  deleteMany
+};

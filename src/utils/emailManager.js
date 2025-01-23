@@ -1,7 +1,7 @@
-import nodemailer from "nodemailer";
-import { htmlEmail, htmlInviteMessage } from "./htmlModels.js";
+const nodemailer = require("nodemailer");
+const { htmlEmail, htmlInviteMessage } = require("./htmlModels.js");
 
-export async function sendEmail(message, dest, subject) {
+async function sendEmail(message, dest, subject) {
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
@@ -27,7 +27,7 @@ export async function sendEmail(message, dest, subject) {
   return result;
 }
 
-export async function sendGroupInvites(
+async function sendGroupInvites(
   students,
   groupTitle,
   groupLeader,
@@ -49,3 +49,5 @@ export async function sendGroupInvites(
     return error;
   }
 }
+
+module.exports = { sendEmail, sendGroupInvites };

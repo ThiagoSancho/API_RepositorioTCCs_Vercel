@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-export default async function connect(string_connection) {
+async function connect(string_connection) {
   try {
     console.log("Conectando ao banco de dados...");
     await mongoose.connect(string_connection);
@@ -11,3 +11,5 @@ export default async function connect(string_connection) {
     process.exit();
   }
 }
+
+module.exports = connect;

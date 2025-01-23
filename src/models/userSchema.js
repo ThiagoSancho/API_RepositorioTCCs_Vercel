@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import md5 from "md5";
+const mongoose = require("mongoose");
+const md5 = require("md5");
 
 const userSchema = new mongoose.Schema(
   {
@@ -124,6 +124,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-
 const Users = mongoose.model("user", userSchema, "users");
-export default Users;
+
+module.exports = Users;

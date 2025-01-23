@@ -1,16 +1,16 @@
-import Users from "../models/userSchema.js";
-import Courses from "../models/courseSchema.js";
-import Groups from "../models/groupSchema.js";
-import JwtToken from "../models/jwtToken.js";
-import md5 from "md5";
-import fs from "fs";
-import { ObjectId } from "mongodb";
-import {
+const Users = require("../models/userSchema.js");
+const Courses = require("../models/courseSchema.js");
+const Groups = require("../models/groupSchema.js");
+const JwtToken = require("../models/jwtToken.js");
+const md5 = require("md5");
+const fs = require("fs");
+const { ObjectId } = require("mongodb");
+const {
   validateFile,
   deleteFile,
   csvToArray,
   renameFile,
-} from "../utils/fileManager.js";
+} = require("../utils/fileManager.js");
 
 /**
  *
@@ -19,7 +19,7 @@ import {
  *
  *
  */
-export async function getAll(request, response) {
+async function getAll(request, response) {
   let query = {};
   const user = request.userLogged;
 
@@ -48,7 +48,7 @@ export async function getAll(request, response) {
   }
 }
 
-export async function getOne(request, response) {
+async function getOne(request, response) {
   const _id = request.params._id;
   try {
     if (!ObjectId.isValid(_id)) {
@@ -96,7 +96,7 @@ export async function getOne(request, response) {
  *
  *
  */
-export async function login(request, response) {
+async function login(request, response) {
   const password = request.body.password;
   const register = request.body.register;
 
@@ -140,7 +140,7 @@ export async function login(request, response) {
   }
 }
 
-export async function insertOne(request, response) {
+async function insertOne(request, response) {
   const name = request.body.name;
   const register = request.body.register;
   const emailUser = request.body.email;
@@ -226,7 +226,7 @@ export async function insertOne(request, response) {
   }
 }
 
-export async function insertMany(request, response) {
+async function insertMany(request, response) {
   const csv = request.file;
   try {
     if (!csv) {
@@ -397,7 +397,7 @@ export async function insertMany(request, response) {
  *
  *
  */
-export async function deleteOne(request, response) {
+async function deleteOne(request, response) {
   const _id = request.params._id;
 
   try {
@@ -452,8 +452,8 @@ export async function deleteOne(request, response) {
     const students = group.students;
 
     if (students.length == 1) {
-      deleteFile(user.image)
-      
+      deleteFile(user.image);
+
       await Groups.findByIdAndDelete(user.group_id).exec();
       const result = await Users.findByIdAndDelete(_id).exec();
       const arr = {
@@ -497,7 +497,7 @@ export async function deleteOne(request, response) {
   }
 }
 
-export async function deleteMany(request, response) {
+async function deleteMany(request, response) {
   const _id_list = request.body;
   try {
     if (_id_list.includes(request.userLogged._id.toString())) {
@@ -566,7 +566,7 @@ export async function deleteMany(request, response) {
  *
  *
  */
-export async function updateOne(request, response) {
+async function updateOne(request, response) {
   const _id = request.params._id;
   const phone_number = request.body.phone_number;
   const link = request.body.link;
@@ -649,7 +649,7 @@ export async function updateOne(request, response) {
   }
 }
 
-export async function updatePassword(request, response) {
+async function updatePassword(request, response) {
   const _id = request.params._id;
   const password = request.body.password;
   const newPassword = request.body.newPassword;
@@ -721,7 +721,7 @@ export async function updatePassword(request, response) {
   }
 }
 
-export async function updateStatus(request, response) {
+async function updateStatus(request, response) {
   const _id_list = request.body;
   const status = request.params.status;
 
@@ -766,7 +766,7 @@ export async function updateStatus(request, response) {
   }
 }
 
-export async function updateAdmin(request, response) {
+async function updateAdmin(request, response) {
   const _id = request.params._id;
 
   const name = request.body.name;
@@ -916,7 +916,7 @@ export async function updateAdmin(request, response) {
   }
 }
 
-export async function updateImage(request, response) {
+async function updateImage(request, response) {
   const _id = request.params._id;
   try {
     const image = request.file;
@@ -1003,3 +1003,18 @@ export async function updateImage(request, response) {
     return response.status(500).send(arr);
   }
 }
+
+module.exports = {
+  getAll,
+  getOne,
+  login,
+  insertOne,
+  insertMany,
+  deleteOne,
+  deleteMany,
+  updateOne,
+  updatePassword,
+  updateStatus,
+  updateAdmin,
+  updateImage,
+};
