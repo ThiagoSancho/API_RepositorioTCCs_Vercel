@@ -1,8 +1,8 @@
 {
   "name": "api_repositoriotccs_vercel",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API para o repositório de TCC's.",
+  "main": "api/index.js",
   "dependencies": {
     "accepts": "^1.3.8",
     "append-field": "^1.0.0",
@@ -126,9 +126,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node api/index.js",
+    "dev": "node api/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Thiago Sancho",
   "license": "ISC"
 }
