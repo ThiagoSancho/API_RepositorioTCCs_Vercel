@@ -76,4 +76,4 @@ function htmlInviteMessage(groupTitle, groupLeader, groupId, studentId) {
       `;
 }
 
-module.exports = { htmlEmail, htmlInviteMessage, ht };
+module.exports = { htmlEmail, htmlInviteMessage };
