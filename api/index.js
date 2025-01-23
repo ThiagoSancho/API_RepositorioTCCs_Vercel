@@ -13,25 +13,20 @@ const app = express();
 app.use("/uploads", express.static("uploads"));
 app.use("/default", express.static("default"));
 
-// Conectar ao banco de dados
 connect(process.env.STRING_CONNECTION);
 
-// Definir rotas
 
 courseRoutes(app);
 userRoutes(app);
 groupRoutes(app);
 
-// Rota principal
 app.get("/", (request, response) => {
   console.log("Servidor no Vercel!");
   response.send("Servidor Vercel!")
 });
 
-// Iniciar o servidor
 app.listen(4000, () => {
   console.log("Servidor rodando na porta: http://localhost:3000/repository/");
 });
 
-// Exporte o app
 module.exports = app;
