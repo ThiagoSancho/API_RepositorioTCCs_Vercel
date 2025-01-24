@@ -968,7 +968,7 @@ async function updateImage(request, response) {
       };
       return response.status(400).send(arr);
     }
-
+    console.log(image)
     const renameResult = renameFile(image.path, newPath);
     if (renameResult.status == false) {
       deleteFile(image.path);
